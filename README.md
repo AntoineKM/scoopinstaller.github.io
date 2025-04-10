@@ -1,36 +1,36 @@
-[![Deployment status](https://img.shields.io/github/actions/workflow/status/ScoopInstaller/scoopinstaller.github.io/build-deploy.yml?label=Deployment&logo=github&style=flat-square)](https://github.com/ScoopInstaller/scoopinstaller.github.io/deployments)
-[![Open in GitHub Codespaces](https://img.shields.io/badge/Codespaces-Open%20in%20GitHub%20CodeSpaces-blue?logo=github&style=flat-square)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=276677210)
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-# Scoop website
+## Getting Started
 
-This repository is used to build the Scoop website https://scoop.sh
+First, run the development server:
 
-
-### Build this project
-
-#### Get the source
-- If you already use Scoop, install Git and clone the repository:
-```
-scoop install git
-git clone https://github.com/ScoopInstaller/scoopinstaller.github.io
-cd scoopinstaller.github.io
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-#### Prerequisites
-- Install a recent [Node](https://nodejs.org/en/ "Node") version >= 16.0.0, e.g. `scoop install nodejs`
-- Run `npm update`
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-#### Launch the application
-- Run `npm run dev`
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-Application should run on http://localhost:3000 or https://localhost:5000 to pass CORS checks and query the search database.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-#### Build the application
-- Run `npm run build`
+## Learn More
 
-#### Preview the production build
-- Run `npm run preview`
+To learn more about Next.js, take a look at the following resources:
 
-### Contribute to this project
-Pull requests are most welcome!
-Please target the `main` branch and run `npm run build` (or at least `npm run lint`) to ensure your changes compile and match the code guidelines.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
