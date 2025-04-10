@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   ExternalLink,
   Package,
@@ -22,12 +23,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { getAppDetailUrl } from "@/lib/app-utils";
+import type { AppSearchResult } from "@/types/app";
 
 // Initialize dayjs plugins
 dayjs.extend(relativeTime);
 
 type SearchResultsProps = {
-  results: any[];
+  results: AppSearchResult[];
   loading: boolean;
   query: string;
   officialOnly: boolean;
@@ -90,7 +93,11 @@ export function SearchResults({
             <CardHeader className="p-4 pb-0">
               <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold" dangerouslySetInnerHTML={result.nameHighlighted} />
+                  <Link 
+                    href={getAppDetailUrl(result)} 
+                    className="font-semibold hover:underline"
+                    dangerouslySetInnerHTML={result.nameHighlighted} 
+                  />
                   <span className="text-muted-foreground">in</span>
                   <a 
                     href={result.repositoryUrl}
@@ -233,6 +240,15 @@ export function SearchResults({
                         <Copy className="h-4 w-4" />
                       )}
                     </Button>
+                  </div>
+                  
+                  <div className="flex justify-end">
+                    <Link 
+                      href={getAppDetailUrl(result)}
+                      className="text-primary text-sm hover:underline"
+                    >
+                      View details &rarr;
+                    </Link>
                   </div>
                 </div>
               </div>
