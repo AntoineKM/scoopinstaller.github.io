@@ -33,8 +33,8 @@ export function Navbar() {
   };
 
   return (
-    <header className="border-b border-border bg-background">
-      <div className="container flex h-16 items-center justify-between px-4 md:px-6">
+    <header className="border-b border-border bg-background w-full">
+      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2">
             <img
