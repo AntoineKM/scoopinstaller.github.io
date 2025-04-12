@@ -16,6 +16,7 @@ import { BucketsFilter } from "@/components/buckets/buckets-filter";
 import { BucketsCategoryTabs } from "@/components/buckets/buckets-category-tabs";
 import { API_CONFIG } from '@/lib/api-config';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { BucketSearch } from "@/components/buckets/bucket-search";
 
 export const metadata: Metadata = {
   title: "Buckets | Scoop",
@@ -290,35 +291,13 @@ export default async function BucketsPage({
       <div className="container mx-auto px-4 py-8 md:px-6">
         {/* Search form and filtering */}
         <div className="max-w-3xl mx-auto mb-8">
-            {/* Server-side search form - Styled like homepage */}
-            <form className="relative" action="/buckets">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-muted-foreground" />
-              </div>
-              
-              <input
-                type="text"
-                name="q"
-                placeholder="Search for buckets (e.g., games, nerd-fonts, java...)"
-                className="pl-10 pr-24 h-12 text-base w-full rounded-md border border-input bg-background px-3 py-2 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 shadow-sm"
-                defaultValue={query}
-              />
-              
-              {/* Hidden inputs to preserve other search params */}
-              <input type="hidden" name="page" value="1" />
-              {sortMode !== "Default" && <input type="hidden" name="sort" value={sortMode} />}
-              {category !== "All" && <input type="hidden" name="category" value={category} />}
-              {perPage !== 15 && <input type="hidden" name="per_page" value={perPage.toString()} />}
-              
-              <Button 
-                type="submit" 
-                size="sm" 
-                className="absolute right-1 top-1/2 -translate-y-1/2 h-10"
-              >
-                Search
-              </Button>
-            </form>
-          </div>
+          <BucketSearch 
+            initialQuery={query} 
+            sortMode={sortMode} 
+            category={category} 
+            perPage={perPage} 
+          />
+        </div>
         
         {/* Featured buckets section (only show when no search is active) */}
         {!isSearchOrFilterActive && (

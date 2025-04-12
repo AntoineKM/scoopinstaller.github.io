@@ -23,6 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { API_CONFIG } from '@/lib/api-config';
+import { OrganizationSearch } from "@/components/search/organization-bucket-search";
 
 type Organization = {
   name: string;
@@ -299,17 +300,7 @@ export default function ProviderPage() {
         </div>
         
         <form onSubmit={handleSearch} className="flex gap-2 mb-6">
-          <div className="relative w-full max-w-md">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              type="text"
-              placeholder={`Search organizations...`}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
-            />
-          </div>
-          <Button type="submit">Search</Button>
+          <OrganizationSearch initialQuery={searchQuery} provider={provider} />
         </form>
         
         {loading ? (

@@ -16,6 +16,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { API_CONFIG } from '@/lib/api-config';
+import { BucketSearchInOrg } from "@/components/search/organization-bucket-search";
 
 type Bucket = {
   name: string;
@@ -189,17 +190,11 @@ export default function OrganizationPage() {
         </h1>
         
         <form onSubmit={handleSearch} className="flex gap-2 mb-6">
-          <div className="relative w-full max-w-md">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              type="text"
-              placeholder={`Search buckets...`}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
-            />
-          </div>
-          <Button type="submit">Search</Button>
+          <BucketSearchInOrg 
+            initialQuery={searchQuery} 
+            provider={provider} 
+            organization={organization} 
+          />
         </form>
         
         {loading ? (

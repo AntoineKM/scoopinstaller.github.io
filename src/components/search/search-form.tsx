@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Filter, X, HelpCircle, SortDesc, CheckCircle2, SlidersHorizontal } from "lucide-react";
+import { Filter, X, HelpCircle, SortDesc, CheckCircle2, SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { SearchInput } from "@/components/search/search-input";
 import {
   Sheet,
   SheetClose,
@@ -22,7 +22,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { sortModes } from "@/app/apps/page";
 
-import { ArrowDownAZ, CalendarDays } from "lucide-react";
+import { ArrowDownAZ, CalendarDays, Search } from "lucide-react";
 
 type SearchFormProps = {
   searchInput: string;
@@ -63,22 +63,32 @@ export function SearchForm({
     }
   };
 
+  // Handle search submit from the SearchInput component
+  const onSearchSubmit = (query: string) => {
+    setSearchInput(query);
+    // Create a mock event object to pass to the handleSearch function
+    const mockEvent = {
+      preventDefault: () => {}
+    } as React.FormEvent;
+    handleSearch(mockEvent);
+  };
+
   return (
     <div className="max-w-3xl mx-auto">
-      <form onSubmit={handleSearch} className="relative group">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <Search className="h-5 w-5 text-muted-foreground" />
-        </div>
-        
-        <Input 
-          type="text" 
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
+      <div className="relative group">
+        <SearchInput
+          initialQuery={searchInput}
           placeholder="Search for applications (e.g., git, vscode, nodejs...)"
-          className="pl-10 pr-24 py-6 text-base shadow-sm"
+          className="shadow-sm"
+          inputClassName="pr-24 py-6 text-base shadow-sm"
+          onSearch={onSearchSubmit}
+          autoFocus={false}
+          inputHeight="h-12"
+          textSize="text-base"
+          buttonText="Search"
         />
         
-        <div className="absolute inset-y-0 right-0 flex items-center">
+        <div className="absolute right-[80px] top-1/2 -translate-y-1/2 z-10">
           <Sheet open={isFilterSheetOpen} onOpenChange={setIsFilterSheetOpen}>
             <SheetTrigger asChild>
               <Button 
@@ -260,15 +270,8 @@ export function SearchForm({
               </SheetFooter>
             </SheetContent>
           </Sheet>
-          
-          <Button 
-            type="submit" 
-            className="h-8"
-          >
-            Search
-          </Button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

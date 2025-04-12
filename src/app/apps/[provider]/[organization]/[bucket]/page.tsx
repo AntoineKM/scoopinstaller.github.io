@@ -10,6 +10,7 @@ import { SearchResults } from "@/components/search-results";
 import { Pagination } from "@/components/pagination";
 import { API_CONFIG } from '@/lib/api-config';
 import type { AppSearchResult } from "@/types/app";
+import { AppSearchInBucket } from "@/components/search/organization-bucket-search";
 
 export default function BucketPage() {
   const params = useParams();
@@ -198,17 +199,12 @@ export default function BucketPage() {
         </h1>
         
         <form onSubmit={handleSearch} className="flex gap-2 mb-6">
-          <div className="relative w-full max-w-md">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              type="text"
-              placeholder={`Search in ${bucket}...`}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
-            />
-          </div>
-          <Button type="submit">Search</Button>
+          <AppSearchInBucket 
+            initialQuery={searchQuery} 
+            provider={provider} 
+            organization={organization} 
+            bucket={bucket}
+          />
         </form>
         
         <div className="mb-8">
