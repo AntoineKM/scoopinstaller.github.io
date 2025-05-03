@@ -42,7 +42,7 @@ async function getAppCount() {
         count: true,
         search: "",
         searchMode: "all",
-        filter: "Metadata/OfficialRepositoryNumber eq 1 and Metadata/DuplicateOf eq null",
+        filter: "Metadata/DuplicateOf eq null",
         top: 0, // Just get count, no results
       }),
     });
@@ -103,7 +103,7 @@ async function fetchAppBatch(skip: number, batchSize: number) {
         count: false,
         search: "",
         searchMode: "all",
-        filter: "Metadata/OfficialRepositoryNumber eq 1 and Metadata/DuplicateOf eq null",
+        filter: "Metadata/DuplicateOf eq null",
         orderby: "search.score() desc, Metadata/OfficialRepositoryNumber desc, NameSortable asc",
         skip: skip,
         top: batchSize,
