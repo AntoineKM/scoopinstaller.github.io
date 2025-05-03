@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { AppDetailView } from '@/components/app-detail-view';
 import { API_CONFIG } from '@/lib/api-config';
-import type { AppDetail } from '@/types/app';
+import type { AppDetail, AppItem } from '@/types/app';
 
 type AppDetailPageProps = {
   params: Promise<{
@@ -125,7 +125,7 @@ async function fetchAppBatch(skip: number, batchSize: number) {
 
     // Parse apps in this batch
     const batchPaths = batchData.value
-      .map((app: any) => {
+      .map((app: AppItem) => {
         const repoUrl = app.Metadata?.Repository || '';
         if (!repoUrl) return null;
         
@@ -140,12 +140,12 @@ async function fetchAppBatch(skip: number, batchSize: number) {
           appName: app.Name,
         };
       })
-      .filter((item): item is { 
+      .filter((item: { provider: string; organization: string; bucket: string; appName?: string } | null): item is { 
         provider: string; 
         organization: string; 
         bucket: string; 
         appName: string;
-      } => item !== null);
+      } => item !== null && typeof item.appName === 'string');
 
     console.log(`Batch at skip=${skip} generated ${batchPaths.length} paths`);
     return batchPaths;
@@ -178,7 +178,7 @@ export async function generateMetadata(
         type: 'website',
       },
     };
-  } catch (error) {
+  } catch {
     // Fallback metadata if we can't get app data
     return {
       title: `${appName} | ${organization}/${bucket} | Scoop`,
@@ -239,7 +239,7 @@ async function getAppData(
     }
 
     // Find the exact match by app name
-    const exactMatch = data.value.find((item: any) => item.Name === appName);
+    const exactMatch = data.value.find((item: AppItem) => item.Name === appName);
     
     // If no exact match is found, return null
     if (!exactMatch) {
@@ -338,7 +338,7 @@ export default async function AppDetailPage({ params }: AppDetailPageProps) {
         <div className="text-center py-12">
           <h2 className="text-xl font-semibold mb-2">App Not Found</h2>
           <p className="text-muted-foreground">
-            The app "{appName}" could not be found in {organization}/{bucket}.
+            The app &ldquo;{appName}&rdquo; could not be found in {organization}/{bucket}.
           </p>
         </div>
       </div>

@@ -67,3 +67,11 @@ export type AppDetail = AppSearchResult & {
     count: number;
   }[];
 };
+
+export type AppItem = {
+  Id?: string;
+  Name?: string;
+  Metadata?: {
+    Repository?: string;
+  };
+};
