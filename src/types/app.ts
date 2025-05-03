@@ -75,3 +75,16 @@ export type AppItem = {
     Repository?: string;
   };
 };
+
+export type RepositoryFacetItem = {
+  value: string;
+  count: number;
+  isOfficial?: boolean;
+}
+
+export type Organization = {
+  name: string;
+  buckets: number;
+  manifests: number;
+  official: boolean;
+};
